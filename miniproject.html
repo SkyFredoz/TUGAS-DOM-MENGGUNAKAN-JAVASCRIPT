@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>To Do List</h1>
+    <div id="container">
+        <form>
+            <label for="fname">input data:</label><br>
+            <input type="text" id="fname" name="fname"><br>
+        </form>
+        <button id="btntambah" type="button">Add List</button>
+    </div>
+    <div id="content">
+        <ul id="list"></ul>
+    </div>
+    <script>
+        // Mengubah "teks" menjadi "fname" sesuai dengan ID di HTML
+        const inputElement = document.getElementById("fname"); 
+        const button = document.getElementById("btntambah");
+        const list = document.getElementById("list");
+
+        button.addEventListener("click", function () {
+            // Mengubah "input" menjadi "inputElement"
+            const teksv = inputElement.value;
+            if (teksv !== "") {
+                // Mengubah "li" menjadi string 'li'
+                const li = document.createElement('li'); 
+                li.textContent = teksv;
+                list.appendChild(li);
+                inputElement.value = "";
+            } else {
+                alert("Tidak Boleh Kosong");
+            }
+        });
+    </script>
+</body>
+</html>
