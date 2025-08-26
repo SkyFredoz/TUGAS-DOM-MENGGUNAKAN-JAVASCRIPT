@@ -19,38 +19,47 @@
         <ul id="list"></ul>
     </div>
     <script>
-        // Mengubah "teks" menjadi "fname" sesuai dengan ID di HTML
-        const inputElement = document.getElementById("fname"); 
+        const inputElement = document.getElementById("fname");
         const button = document.getElementById("btntambah");
         const list = document.getElementById("list");
+        let itemEdit = null;
 
         button.addEventListener("click", function () {
-            // Mengubah "input" menjadi "inputElement"
-            const teksv = inputElement.value;
+            const teksv = inputElement.value.trim();
             if (teksv !== "") {
-                // Mengubah "li" menjadi string 'li'
-                const li = document.createElement('li'); 
-                const spantext = document.createElement("span")
-                spantext.textContent = teksv;
-                li.appendChild(spantext);
+                if (itemEdit) {
+                    
+                    const span = itemEdit.querySelector("span");
+                    span.textContent = teksv;
+                    button.textContent = "Add List";
+                    itemEdit = null;
+                } else {
+                    
+                    const li = document.createElement('li');
+                    const spantext = document.createElement("span");
+                    spantext.textContent = teksv;
+                    li.appendChild(spantext);
 
-                const btnEdit = document.createElement("button");
-                btnEdit.textContent = "Edit";
-                btnEdit.addEventListener("click", function () {
-                inputElement.value = spantext.textContent;
-                button.textContent = "Update List";
-                itemToEdit = li;
-                });
-                btnEdit.style.backgroundColor = 'yellow';
+                    const btnEdit = document.createElement("button");
+                    btnEdit.textContent = "Edit";
+                    btnEdit.addEventListener("click", function () {
+                        inputElement.value = spantext.textContent;
+                        button.textContent = "Update List";
+                        itemEdit = li; 
+                    });
+                    btnEdit.style.backgroundColor = 'yellow';
 
-                const btnDelete = document.createElement("button");
-                btnDelete.textContent = "Delete";
-                btnDelete.style.backgroundColor = 'red';
+                    const btnDelete = document.createElement("button");
+                    btnDelete.textContent = "Delete";
+                    btnDelete.addEventListener("click", function () {
+                        list.removeChild(li);
+                    });
+                    btnDelete.style.backgroundColor = 'red';
 
-                li.appendChild(btnEdit);
-                li.appendChild(btnDelete);
-                // li.textContent = teksv;
-                list.appendChild(li);
+                    li.appendChild(btnEdit);
+                    li.appendChild(btnDelete);
+                    list.appendChild(li);
+                }
                 inputElement.value = "";
             } else {
                 alert("Tidak Boleh Kosong");
