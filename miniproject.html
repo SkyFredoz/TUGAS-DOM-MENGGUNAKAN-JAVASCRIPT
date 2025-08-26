@@ -30,7 +30,26 @@
             if (teksv !== "") {
                 // Mengubah "li" menjadi string 'li'
                 const li = document.createElement('li'); 
-                li.textContent = teksv;
+                const spantext = document.createElement("span")
+                spantext.textContent = teksv;
+                li.appendChild(spantext);
+
+                const btnEdit = document.createElement("button");
+                btnEdit.textContent = "Edit";
+                btnEdit.addEventListener("click", function () {
+                inputElement.value = spantext.textContent;
+                button.textContent = "Update List";
+                itemToEdit = li;
+                });
+                btnEdit.style.backgroundColor = 'yellow';
+
+                const btnDelete = document.createElement("button");
+                btnDelete.textContent = "Delete";
+                btnDelete.style.backgroundColor = 'red';
+
+                li.appendChild(btnEdit);
+                li.appendChild(btnDelete);
+                // li.textContent = teksv;
                 list.appendChild(li);
                 inputElement.value = "";
             } else {
